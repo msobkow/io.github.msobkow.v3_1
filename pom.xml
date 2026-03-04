@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.msobkow</groupId>
     <artifactId>io.github.msobkow.v3_1</artifactId>
-    <version>3.1</version>
+    <version>3.1.42</version>
     <name>io.github.msobkow.v3_1</name>
-    <description>Mark's Code Fractal v3.1</description>
+    <description>Mark's Code Fractal v3.1.42</description>
     <packaging>pom</packaging>
     <modules></modules>
     <properties>
@@ -15,12 +15,12 @@
 		<repository>
 			<id>nexus-releases</id>
 			<name>Nexus release repository</name>
-			<url>http://nexus3.msobkow.github.io:8081/repository/markhome.server-hosted/</url>
+			<url>http://nexus3.msobkow.github.io:8081/repository/msobkow.github.io-hosted/</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
 			<name>Nexus release repository</name>
-			<url>http://nexus3.msobkow.github.io:8081/repository/markhome.server-hosted/</url>
+			<url>http://nexus3.msobkow.github.io:8081/repository/msobkow.github.io-hosted/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<build>
@@ -55,7 +55,7 @@
 				</executions>
 				<configuration>
 					<serverId>nexus</serverId>
-					<nexusUrl>http://nexus3.msobkow.github.io:8081/repository/markhome.server-hosted/</nexusUrl>
+					<nexusUrl>http://nexus3.msobkow.github.io:8081/repository/msobkow.github.io-hosted/</nexusUrl>
 					<skipStaging>true</skipStaging>
 				</configuration>
 			</plugin>
