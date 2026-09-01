@@ -10,6 +10,28 @@
     <modules></modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>25</maven.compiler.source>
+		<maven.compiler.target>25</maven.compiler.target>
+		<checkstyle.header.file>${basedir}/src/conf/checkstyle-header.txt</checkstyle.header.file>
+		<checkstyle.config.file>${basedir}/src/conf/checkstyle.xml</checkstyle.config.file>
+		<project.build.outputTimestamp>${env.BUILD_STAMP}</project.build.outputTimestamp>
+		<jacoco.skip>false</jacoco.skip>
+		<commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
+		<commons.jacoco.classRatio>0.92</commons.jacoco.classRatio>
+		<commons.jacoco.instructionRatio>0.91</commons.jacoco.instructionRatio>
+		<commons.jacoco.methodRatio>0.87</commons.jacoco.methodRatio>
+		<commons.jacoco.branchRatio>0.86</commons.jacoco.branchRatio>
+		<commons.jacoco.lineRatio>0.89</commons.jacoco.lineRatio>
+		<commons.jacoco.complexityRatio>0.84</commons.jacoco.complexityRatio>
+		<maven-compiler.version>3.15.0</maven-compiler.version>
+		<maven-toolchains.version>3.3.0</maven-toolchains.version>
+		<graalvm-buildtools.version>1.1.10</graalvm-buildtools.version>
+		<!--jaxb-api.version>2.4.0-b180725.0427</jaxb-api.version-->
+		<!--spring.version>4.0.5</spring.version-->
+		<!--mcf.version>3.1.42</mcf.version-->
+		<js.output.name>commons-codec.js</js.output.name>
+		<!--slf4j.version>2.0.17-gov4j-1</slf4j.version-->
     </properties>
 	<distributionManagement>
 		<repository>
