@@ -26,13 +26,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<commons.encoding>UTF-8</commons.encoding>
-		<project.build.outputTimestamp>${env.BUILD_STAMP}</project.build.outputTimestamp>
+		<!--project.build.outputTimestamp>${env.BUILD_STAMP}</project.build.outputTimestamp-->
 		<maven-compiler.version>3.15.0</maven-compiler.version>
 		<maven-toolchains.version>3.3.0</maven-toolchains.version>
 		<graalvm-buildtools.version>1.1.10</graalvm-buildtools.version>
 		<jaxb-api.version>2.4.0-b180725.0427</jaxb-api.version>
 		<spring.version>4.0.5</spring.version>
-		<mcf.version>3.1.42</mcf.version>
+		<mcf.version>3.1.${env.buildString}-${env.BUILD_STAMP}</mcf.version>
 		<slf4j.version>2.0.17-gov4j-1</slf4j.version>
 		<commons.distSvnStagingBase>scm:git:https://github.com/msobkow/</commons.distSvnStagingBase>
 		<minimalMavenBuildVersion>3.9</minimalMavenBuildVersion>
@@ -45,7 +45,7 @@
 		<commons.release.branch>release</commons.release.branch>
 		<commons.release.version>104</commons.release.version>
 		<commons.release.next>105</commons.release.next>
-		<commons.rc.version>RC1</commons.rc.version>
+		<commons.rc.version>${env.buildString}</commons.rc.version>
 		<commons.jira.id>COMMONSSITE</commons.jira.id>
 		<!-- Commons Release Plugin -->
 		<!-- Previous version of the component (used for reporting binary compatibility check)-->
@@ -86,8 +86,6 @@
 		<commons.build-helper.version>3.6.1</commons.build-helper.version>
 		<commons.build-plugin.version>1.16.1</commons.build-plugin.version>
 		<commons.changes.version>3.0.0-M3</commons.changes.version>
-		<commons.checkstyle-plugin.version>3.6.0</commons.checkstyle-plugin.version>
-		<commons.checkstyle.version>13.2.0</commons.checkstyle.version>
 		<commons.compiler.version>3.15.0</commons.compiler.version>
 		<commons.cyclonedx.version>2.9.2</commons.cyclonedx.version>
 		<commons.spdx.version>1.0.4</commons.spdx.version>
@@ -160,9 +158,9 @@
 				 - and so on...
 		-->
 		<commons.packageId>${project.artifactId}</commons.packageId>
-		<commons.repo.name>commons-${commons.componentid}</commons.repo.name>
+		<commons.repo.name>server.markhome.mcf.v3_1</commons.repo.name>
 		<!-- JPMS -->
-		<commons.module.name>org.apache.commons.${commons.packageId}</commons.module.name>
+		<commons.module.name>server.markhome.mcf.v3_1</commons.module.name>
 		<!-- Configuration properties for the OSGi maven-bundle-plugin -->
 		<commons.osgi.symbolicName>org.apache.commons.${commons.packageId}</commons.osgi.symbolicName>
 		<commons.osgi.export>org.apache.commons.*;version=${project.version};-noimport:=true</commons.osgi.export>
@@ -266,7 +264,7 @@
 		<!-- TODO find a better way to add N&L files to jars and test jars
 			See also maven-remote-resources-plugin configuration below.
 		-->
-		<defaultGoal>clean apache-rat:check verify spotbugs:check pmd:check checkstyle:check site</defaultGoal>
+		<defaultGoal>clean apache-rat:check verify spotbugs:check pmd:check site</defaultGoal>
 		<resources>
 			<!-- This is the default setting from the super-pom -->
 			<resource>
@@ -519,7 +517,7 @@
 					<artifactId>apache-rat-plugin</artifactId>
 					<version>${commons.rat.version}</version>
 					<configuration>
-						<numUnapprovedLicenses>100</numUnapprovedLicenses>
+						<counterMax>Unapproved:100</counterMax>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -623,18 +621,6 @@
 							<groupId>org.apache.bcel</groupId>
 							<artifactId>bcel</artifactId>
 							<version>6.12.0</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>${commons.checkstyle-plugin.version}</version>
-					<dependencies>
-						<dependency>
-							<groupId>com.puppycrawl.tools</groupId>
-							<artifactId>checkstyle</artifactId>
-							<version>${commons.checkstyle.version}</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -913,7 +899,7 @@
 				<artifactId>apache-rat-plugin</artifactId>
 				<!-- Should agree with config in reporting section -->
 				<configuration>
-					<numUnapprovedLicenses>100</numUnapprovedLicenses>
+					<counterMax>Unapproved:100</counterMax>
 					<!--
 						If you wish to override this list in the component (child) pom, ensure you use
 						<excludes combine.children="merge">
@@ -921,7 +907,6 @@
 					-->
 					<inputExcludes combine.children="append">
 						<inputExclude>site-content/**</inputExclude>
-						<inputExclude>.checkstyle</inputExclude>
 						<inputExclude>.fbprefs</inputExclude>
 						<inputExclude>.pmd</inputExclude>
 						<inputExclude>.asf.yaml</inputExclude>
@@ -953,15 +938,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-artifact-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>check-buildplan</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>check-buildplan</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -1117,7 +1093,7 @@
 				<version>${commons.rat.version}</version>
 				<!-- Should agree with config in build section -->
 				<configuration>
-					<numUnapprovedLicenses>100</numUnapprovedLicenses>
+					<counterMax>Unapproved:100</counterMax>
 					<!--
 						If you wish to override this list in the component (child) pom, ensure you use
 						<excludes combine.children="merge">
@@ -1125,7 +1101,6 @@
 					-->
 					<inputExcludes combine.children="append">
 						<inputExclude>site-content/**</inputExclude>
-						<inputExclude>.checkstyle</inputExclude>
 						<inputExclude>.fbprefs</inputExclude>
 						<inputExclude>.pmd</inputExclude>
 						<inputExclude>.asf.yaml</inputExclude>
@@ -1593,7 +1568,6 @@
 			<properties>
 				<commons.spdx.version>0.6.3</commons.spdx.version>
 				<commons.spotbugs.impl.version>4.8.6</commons.spotbugs.impl.version>
-				<commons.checkstyle.version>9.3</commons.checkstyle.version>
 			</properties>
 		</profile>
 		<profile>
@@ -1659,7 +1633,6 @@
 				<!-- SpotBugs 4.9.0 requires Java 11 -->
 				<commons.spotbugs.plugin.version>4.8.6.6</commons.spotbugs.plugin.version>
 				<commons.spotbugs.impl.version>4.8.6</commons.spotbugs.impl.version>
-				<commons.checkstyle.version>9.3</commons.checkstyle.version>
 				<!-- Java EE Javadoc has been republished with a Java > 8 and is no longer compatible with Javadoc 8 -->
 				<commons.javadoc.javaee.link></commons.javadoc.javaee.link>
 			</properties>
@@ -1671,7 +1644,6 @@
 			<jdk>[11,16]</jdk>
 			</activation>
 			<properties>
-				<commons.checkstyle.version>10.26.1</commons.checkstyle.version>
 				<!-- spdx can require Java 17 depending on undocumented behavior which kicks in for us here on macOS (but not on Java 8 somehow). -->
 				<commons.spdx.version>0.5.5</commons.spdx.version>
 			</properties>
@@ -1682,9 +1654,6 @@
 			<activation>
 			<jdk>[17,20]</jdk>
 			</activation>
-			<properties>
-				<commons.checkstyle.version>12.3.1</commons.checkstyle.version>
-			</properties>
 		</profile>
 		<profile>
 			<!-- Java 17 and up -->
@@ -1711,7 +1680,6 @@
 				<jdk>[21,)</jdk>
 		</activation>
 			<properties>
-				<commons.checkstyle.version>14.0.0</commons.checkstyle.version>
 				<argLine>-XX:+EnableDynamicAgentLoading</argLine>
 			</properties>
 		</profile>
@@ -1722,7 +1690,6 @@
 				<skipTests>true</skipTests>
 				<maven.javadoc.skip>true</maven.javadoc.skip>
 				<spotbugs.skip>true</spotbugs.skip>
-				<checkstyle.skip>true</checkstyle.skip>
 				<rat.skip>true</rat.skip> <!-- from version 0.12 -->
 				<jacoco.skip>true</jacoco.skip>
 				<skipSurefireReport>true</skipSurefireReport>
