@@ -20,8 +20,8 @@
     </snapshotRepository>
   </distributionManagement>
   <properties>
-    <maven.compiler.source>1.3</maven.compiler.source>
-    <maven.compiler.target>1.3</maven.compiler.target>
+    <maven.compiler.source>25</maven.compiler.source>
+    <maven.compiler.target>25</maven.compiler.target>
     <project.build.sourceEncoding>${commons.encoding}</project.build.sourceEncoding>
     <project.reporting.outputEncoding>${commons.encoding}</project.reporting.outputEncoding>
     <commons.encoding>UTF-8</commons.encoding>
@@ -44,12 +44,11 @@
     <commons.jira.id>COMMONSSITE</commons.jira.id>
     <commons.bc.version>103</commons.bc.version>
     <commons.release.isDistModule>true</commons.release.isDistModule>
-    <commons.compiler.release>8</commons.compiler.release>
+    <commons.compiler.release>25</commons.compiler.release>
     <commons.compiler.fork>false</commons.compiler.fork>
     <commons.compiler.compilerVersion></commons.compiler.compilerVersion>
     <commons.compiler.javac></commons.compiler.javac>
     <commons.compiler.javadoc></commons.compiler.javadoc>
-    <version.maven-source-plugin>3.4.0</version.maven-source-plugin>
     <commons.animal-sniffer.version>1.27</commons.animal-sniffer.version>
     <commons.animal-sniffer.signature.version>1.0</commons.animal-sniffer.signature.version>
     <commons.assembly-plugin.version>3.8.0</commons.assembly-plugin.version>
@@ -87,7 +86,6 @@
     <commons.surefire-report.version>3.5.6</commons.surefire-report.version>
     <commons.surefire.version>3.5.6</commons.surefire.version>
     <commons.wagon-ssh.version>3.5.3</commons.wagon-ssh.version>
-    <commons.maven-remote-resources-plugin.version>3.3.0</commons.maven-remote-resources-plugin.version>
     <commons.release.name>${project.artifactId}-${commons.release.version}</commons.release.name>
     <commons.release.desc></commons.release.desc>
     <commons.binary.suffix>-bin</commons.binary.suffix>
@@ -256,35 +254,6 @@
         <plugin>
           <artifactId>maven-assembly-plugin</artifactId>
           <version>${commons.assembly-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>${commons.javadoc.version}</version>
-          <configuration>
-            <quiet>true</quiet>
-            <source>${maven.compiler.source}</source>
-            <javadocExecutable>${commons.compiler.javadoc}</javadocExecutable>
-            <encoding>${commons.encoding}</encoding>
-            <docencoding>${commons.docEncoding}</docencoding>
-            <notimestamp>true</notimestamp>
-            <linksource>true</linksource>
-            <links>
-              <link>${commons.javadoc.javaee.link}</link>
-            </links>
-            <additionalOptions>${commons.javadoc.options}</additionalOptions>
-            <bottom>Copyright © {inceptionYear}-{currentYear} {organizationName}. All rights reserved.&lt;/br>
-							&lt;a href="${project.url}">${project.name}&lt;/a> | 
-							&lt;a href="${project.issueManagement.url}">Issue management&lt;/a> | 
-							&lt;a href="${project.scm.url}">Source repository&lt;/a></bottom>
-            <failOnWarnings>${commons.javadoc.failOnWarnings}</failOnWarnings>
-          </configuration>
-        </plugin>
-        <plugin>
-          <artifactId>maven-remote-resources-plugin</artifactId>
-          <version>${commons.maven-remote-resources-plugin.version}</version>
-          <configuration>
-            <skip>true</skip>
-          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
@@ -671,18 +640,6 @@
             </manifestEntries>
           </archive>
         </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar-no-fork</goal>
-              <goal>test-jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
