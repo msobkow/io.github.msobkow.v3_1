@@ -20,6 +20,7 @@
     </snapshotRepository>
   </distributionManagement>
   <properties>
+    <graal.mainClass>YouMustDefineAMainClassForGraalVM</graal.mainClass>
     <maven.compiler.source>25</maven.compiler.source>
     <maven.compiler.target>25</maven.compiler.target>
     <project.build.sourceEncoding>${commons.encoding}</project.build.sourceEncoding>
@@ -28,6 +29,7 @@
     <maven-compiler.version>3.15.0</maven-compiler.version>
     <maven-toolchains.version>3.3.0</maven-toolchains.version>
     <graalvm-buildtools.version>1.1.10</graalvm-buildtools.version>
+    <graaljs.version>25.3.4.1</graaljs.version>
     <jaxb-api.version>2.4.0-b180725.0427</jaxb-api.version>
     <spring.version>4.0.5</spring.version>
     <mcf.version>3.1.${env.buildString}-${env.BUILD_STAMP}</mcf.version>
@@ -210,6 +212,74 @@
     </testResources>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.moditect</groupId>
+          <artifactId>moditect-maven-plugin</artifactId>
+          <version>1.0.0.Beta2</version>
+          <executions>
+            <execution>
+              <id>add-module-infos</id>
+              <phase>package</phase>
+              <goals>
+                <goal>add-module-info</goal>
+              </goals>
+              <configuration>
+                <overwriteExistingFiles>true</overwriteExistingFiles>
+                <module>
+                  <moduleInfo>src/java/module-info.java</moduleInfo>
+                </module>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <artifactId>maven-toolchains-plugin</artifactId>
+          <version>${maven-toolchains.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>toolchain</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <toolchains>
+              <jdk>
+                <version>25-lts</version>
+                <vendor>adoptium</vendor>
+              </jdk>
+              <jdk>
+                <version>graalvm-ce-25</version>
+                <vendor>graalvm.org</vendor>
+              </jdk>
+            </toolchains>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.graalvm.buildtools</groupId>
+          <artifactId>native-maven-plugin</artifactId>
+          <version>${graalvm-buildtools.version}</version>
+          <extensions>true</extensions>
+          <executions>
+            <execution>
+              <id>build-native</id>
+              <phase>package</phase>
+              <goals>
+                <goal>compile-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <buildArgs>
+              <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
+              <buildArg>-H:Preserve=all</buildArg>
+            </buildArgs>
+            <mainClass>${graal.mainClass}</mainClass>
+            <skipNativeBuildForPom>true</skipNativeBuildForPom>
+            <debug>true</debug>
+            <extensions>true</extensions>
+          </configuration>
+        </plugin>
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>3.1.4</version>
@@ -1225,39 +1295,7 @@
       <activation>
         <jdk>[9,)</jdk>
       </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.moditect</groupId>
-            <artifactId>moditect-maven-plugin</artifactId>
-            <version>${commons.moditect-maven-plugin.version}</version>
-            <executions>
-              <execution>
-                <id>add-module-infos</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>add-module-info</goal>
-                </goals>
-                <configuration>
-                  <jvmVersion>${moditect.java.version}</jvmVersion>
-                  <jdepsExtraArgs>
-                    <arg>--multi-release=${moditect.java.version}</arg>
-                  </jdepsExtraArgs>
-                  <outputDirectory>${project.build.directory}</outputDirectory>
-                  <overwriteExistingFiles>true</overwriteExistingFiles>
-                  <failOnWarning>false</failOnWarning>
-                  <module>
-                    <moduleInfo>
-                      <name>${commons.module.name}</name>
-                      <addServiceUses>${commons.moditect-maven-plugin.addServiceUses}</addServiceUses>
-                    </moduleInfo>
-                  </module>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
+      <build />
       <properties>
         <moditect.java.version>9</moditect.java.version>
         <commons.moditect-maven-plugin.addServiceUses>true</commons.moditect-maven-plugin.addServiceUses>
