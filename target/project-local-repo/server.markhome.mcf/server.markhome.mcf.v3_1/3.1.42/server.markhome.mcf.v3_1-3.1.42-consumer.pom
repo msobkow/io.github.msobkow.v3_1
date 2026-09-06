@@ -20,16 +20,16 @@
     </snapshotRepository>
   </distributionManagement>
   <properties>
-    <graal.mainClass>YouMustDefineAMainClassForGraalVM</graal.mainClass>
     <maven.compiler.source>25</maven.compiler.source>
     <maven.compiler.target>25</maven.compiler.target>
+    <maven-compiler.version>3.15.0</maven-compiler.version>
+    <maven-toolchains.version>3.3.0</maven-toolchains.version>
+    <graal.mainClass>YouMustDefineAMainClassForGraalVM</graal.mainClass>
+    <graalvm-buildtools.version>1.1.10</graalvm-buildtools.version>
+    <graaljs.version>25.3.4.1</graaljs.version>
     <project.build.sourceEncoding>${commons.encoding}</project.build.sourceEncoding>
     <project.reporting.outputEncoding>${commons.encoding}</project.reporting.outputEncoding>
     <commons.encoding>UTF-8</commons.encoding>
-    <maven-compiler.version>3.15.0</maven-compiler.version>
-    <maven-toolchains.version>3.3.0</maven-toolchains.version>
-    <graalvm-buildtools.version>1.1.10</graalvm-buildtools.version>
-    <graaljs.version>25.3.4.1</graaljs.version>
     <jaxb-api.version>2.4.0-b180725.0427</jaxb-api.version>
     <spring.version>4.0.5</spring.version>
     <mcf.version>3.1.${env.buildString}-${env.BUILD_STAMP}</mcf.version>
@@ -37,7 +37,6 @@
     <commons.distSvnStagingBase>scm:git:https://github.com/msobkow/</commons.distSvnStagingBase>
     <minimalMavenBuildVersion>3.9</minimalMavenBuildVersion>
     <minimalJavaBuildVersion>25</minimalJavaBuildVersion>
-    <project.build.outputTimestamp>${env.BUILD_STAMP}</project.build.outputTimestamp>
     <commons.main.branch>main</commons.main.branch>
     <commons.release.branch>release</commons.release.branch>
     <commons.release.version>104</commons.release.version>
@@ -75,10 +74,10 @@
     <commons.scm-publish.version>1.1</commons.scm-publish.version>
     <commons.moditect-maven-plugin.version>1.3.0.Final</commons.moditect-maven-plugin.version>
     <commons.moditect-maven-plugin.addServiceUses>true</commons.moditect-maven-plugin.addServiceUses>
-    <commons.biz.aQute.bndlib.version>6.4.1</commons.biz.aQute.bndlib.version>
-    <commons.junit.version>5.14.4</commons.junit.version>
+    <commons.biz.aQute.bndlib.version>7.4.0</commons.biz.aQute.bndlib.version>
+    <commons.junit.version>6.1.3</commons.junit.version>
     <commons.junit-pioneer.version>1.9.1</commons.junit-pioneer.version>
-    <commons.mockito.version>4.11.0</commons.mockito.version>
+    <commons.mockito.version>5.23.0</commons.mockito.version>
     <commons.jmh.version>1.37</commons.jmh.version>
     <commons.asm.version>9.10.1</commons.asm.version>
     <commons.taglist.version>3.2.2</commons.taglist.version>
@@ -136,17 +135,106 @@
     <commons.changes.runOnlyAtExecutionRoot>false</commons.changes.runOnlyAtExecutionRoot>
     <commons.site.cache>${user.home}/commons-sites</commons.site.cache>
     <commons.site.path>${commons.componentid}</commons.site.path>
-    <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-${commons.componentid}</commons.scmPubUrl>
+    <commons.scmPubUrl>https://github.com/msobkow/commons-${commons.componentid}</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>${commons.site.cache}/${commons.site.path}</commons.scmPubCheckoutDirectory>
     <commons.scmPubServer>commons.site</commons.scmPubServer>
     <commons.japicmp.breakBuildOnBinaryIncompatibleModifications>true</commons.japicmp.breakBuildOnBinaryIncompatibleModifications>
     <commons.japicmp.breakBuildOnSourceIncompatibleModifications>false</commons.japicmp.breakBuildOnSourceIncompatibleModifications>
     <commons.japicmp.ignoreMissingClasses>false</commons.japicmp.ignoreMissingClasses>
-    <commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}</commons.distSvnStagingUrl>
+    <commons.distSvnStagingUrl>scm:git:https://github.com/msobkow/${commons.componentid}-js</commons.distSvnStagingUrl>
     <commons.conf.dir>src/conf</commons.conf.dir>
-    <sonar.host.url>https://analysis.apache.org/</sonar.host.url>
     <changes.announcementDirectory>.</changes.announcementDirectory>
     <changes.announcementFile>RELEASE-NOTES.txt</changes.announcementFile>
+    <java.version>25</java.version>
+    <project.build.outputTimestamp>2026-09-04T14:45:00Z</project.build.outputTimestamp>
+    <commons.slf4j.version>${slf4j.version}</commons.slf4j.version>
+    <commons.log4j2.version>2.26.1</commons.log4j2.version>
+    <commons.titanium-json-ld.version>1.7.0</commons.titanium-json-ld.version>
+    <commons.jakarta.json.version>2.0.1</commons.jakarta.json.version>
+    <commons.jetty.version>12.1.12</commons.jetty.version>
+    <commons.jakarta-servlet.version>6.1.0</commons.jakarta-servlet.version>
+    <commons.shiro.version>2.2.1</commons.shiro.version>
+    <commons.protobuf.version>4.36.0</commons.protobuf.version>
+    <commons.libthrift.version>0.24.0</commons.libthrift.version>
+    <commons.caffeine.version>3.2.4</commons.caffeine.version>
+    <commons.guava.version>33.7.1-jre</commons.guava.version>
+    <commons.gson.version>2.14.0</commons.gson.version>
+    <commons.lucene.version>10.3.1</commons.lucene.version>
+    <commons.commons-io.version>2.22.0</commons.commons-io.version>
+    <commons.commons-cli.version>1.7.0</commons.commons-cli.version>
+    <commons.commons-lang3.version>3.20.0</commons.commons-lang3.version>
+    <commons.commons-math4.version>4.0-beta1</commons.commons-math4.version>
+    <commons.commons-rdf.version>0.5.0</commons.commons-rdf.version>
+    <commons.commons-csv.version>1.14.1</commons.commons-csv.version>
+    <commons.commons-codec.version>1.22.1</commons.commons-codec.version>
+    <commons.commons-compress.version>1.28.0</commons.commons-compress.version>
+    <commons.commons-collections.version>4.6.0</commons.commons-collections.version>
+    <commons.commons-fileupload.version>2.0.0-M5</commons.commons-fileupload.version>
+    <commons.dexxcollection.version>0.7</commons.dexxcollection.version>
+    <commons.micrometer.version>1.17.1</commons.micrometer.version>
+    <commons.roaringbitmap.version>1.6.20</commons.roaringbitmap.version>
+    <commons.opencsv.version>5.12.0</commons.opencsv.version>
+    <commons.junit4.version>4.13.2</commons.junit4.version>
+    <commons.awaitility.version>4.3.0</commons.awaitility.version>
+    <commons.graalvm.version>${graaljs.version}</commons.graalvm.version>
+    <commons.org.openjdk.jmh.version>1.37</commons.org.openjdk.jmh.version>
+    <commons.kryo.version>5.6.2</commons.kryo.version>
+    <commons.jcommander.version>1.82</commons.jcommander.version>
+    <commons.sis.version>1.6</commons.sis.version>
+    <commons.jts.version>1.20.0</commons.jts.version>
+    <commons.jdom2.version>2.0.6.1</commons.jdom2.version>
+    <commons.selenium-java.version>4.47.0</commons.selenium-java.version>
+    <commons.webdrivermanager.version>6.3.4</commons.webdrivermanager.version>
+    <ver.plugin.rat>${commons.plugin.rat.version}</ver.plugin.rat>
+    <ver.plugin.assembly>${commons.plugin.assembly.version}</ver.plugin.assembly>
+    <ver.plugin.compiler>${commons.plugin.compiler.version}</ver.plugin.compiler>
+    <ver.plugin.surefire>${commons.plugin.surefire.version}</ver.plugin.surefire>
+    <ver.plugin.javadoc>${commons.plugin.javadoc.version}</ver.plugin.javadoc>
+    <ver.plugin.shade>${commons.plugin.shade.version}</ver.plugin.shade>
+    <ver.plugin.enforcer>${commons.plugin.enforcer.version}</ver.plugin.enforcer>
+    <ver.plugin.cyclonedx>${commons.plugin.cyclonedx.version}</ver.plugin.cyclonedx>
+    <ver.plugin.spdx>${commons.plugin.spdx.version}</ver.plugin.spdx>
+    <ver.plugin.flatten>${commons.plugin.flatten.version}</ver.plugin.flatten>
+    <ver.slf4j>${commons.slf4j.version}</ver.slf4j>
+    <ver.log4j2>${commons.log4j2.version}</ver.log4j2>
+    <ver.titanium-json-ld>${commons.titanium-json-ld.version}</ver.titanium-json-ld>
+    <ver.jakarta.json>${commons.jakarta.json.version}</ver.jakarta.json>
+    <ver.jetty>${commons.jetty.version}</ver.jetty>
+    <ver.jakarta-servlet>${commons.jakarta-servlet.version}</ver.jakarta-servlet>
+    <ver.shiro>${commons.shiro.version}</ver.shiro>
+    <ver.protobuf>${commons.protobuf.version}</ver.protobuf>
+    <ver.libthrift>${commons.libthrift.version}</ver.libthrift>
+    <ver.caffeine>${commons.caffeine.version}</ver.caffeine>
+    <ver.guava>${commons.guava.version}</ver.guava>
+    <ver.gson>${commons.gson.version}</ver.gson>
+    <ver.lucene>${commons.lucene.version}</ver.lucene>
+    <ver.commons-io>${commons.commons-io.version}</ver.commons-io>
+    <ver.commons-cli>${commons.commons-cli.version}</ver.commons-cli>
+    <ver.commons-lang3>${commons.commons-lang3.version}</ver.commons-lang3>
+    <ver.commons-math4>${commons.commons-math4.version}</ver.commons-math4>
+    <ver.commons-rdf>${commons.commons-rdf.version}</ver.commons-rdf>
+    <ver.commons-csv>${commons.commons-csv.version}</ver.commons-csv>
+    <ver.commons-codec>${commons.commons-codec.version}</ver.commons-codec>
+    <ver.commons-compress>${commons.commons-compress.version}</ver.commons-compress>
+    <ver.commons-collections>${commons.commons-collections.version}</ver.commons-collections>
+    <ver.commons-fileupload>${commons.commons-fileupload.version}</ver.commons-fileupload>
+    <ver.dexxcollection>${commons.dexxcollection.version}</ver.dexxcollection>
+    <ver.micrometer>${commons.micrometer.version}</ver.micrometer>
+    <ver.roaringbitmap>${commons.roaringbitmap.version}</ver.roaringbitmap>
+    <ver.opencsv>${commons.opencsv.version}</ver.opencsv>
+    <ver.junit4>${commons.junit4.version}</ver.junit4>
+    <ver.junit>${commons.junit.version}</ver.junit>
+    <ver.mockito>${commons.mockito.version}</ver.mockito>
+    <ver.awaitility>${commons.awaitility.version}</ver.awaitility>
+    <ver.graalvm>${commons.graalvm.version}</ver.graalvm>
+    <ver.org.openjdk.jmh>${commons.org.openjdk.jmh.version}</ver.org.openjdk.jmh>
+    <ver.kryo>${commons.kryo.version}</ver.kryo>
+    <ver.jcommander>${commons.jcommander.version}</ver.jcommander>
+    <ver.sis>${commons.sis.version}</ver.sis>
+    <ver.jts>${commons.jts.version}</ver.jts>
+    <ver.jdom2>${commons.jdom2.version}</ver.jdom2>
+    <ver.selenium-java>${commons.selenium-java.version}</ver.selenium-java>
+    <ver.webdrivermanager>${commons.webdrivermanager.version}</ver.webdrivermanager>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -155,19 +243,20 @@
         <artifactId>junit-bom</artifactId>
         <version>${commons.junit.version}</version>
         <type>pom</type>
-        <scope>import</scope>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.junit-pioneer</groupId>
         <artifactId>junit-pioneer</artifactId>
         <version>${commons.junit-pioneer.version}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-bom</artifactId>
         <version>${commons.mockito.version}</version>
         <type>pom</type>
-        <scope>import</scope>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -215,7 +304,7 @@
         <plugin>
           <groupId>org.moditect</groupId>
           <artifactId>moditect-maven-plugin</artifactId>
-          <version>1.0.0.Beta2</version>
+          <version>${commons.moditect-maven-plugin.version}</version>
           <executions>
             <execution>
               <id>add-module-infos</id>
@@ -430,6 +519,15 @@
           <version>${commons.rat.version}</version>
           <configuration>
             <counterMax>Unapproved:100</counterMax>
+            <excludes>
+              <exclude>site-content/**</exclude>
+              <exclude>src/site/resources/.htaccess</exclude>
+              <exclude>src/site/resources/download_lang.cgi</exclude>
+              <exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
+              <exclude>src/test/resources/lang-708-input.txt</exclude>
+              <exclude>**/*.svg</exclude>
+              <exclude>**/*.xcf</exclude>
+            </excludes>
           </configuration>
         </plugin>
         <plugin>
@@ -574,6 +672,13 @@
               <version>${commons.pmd-impl.version}</version>
             </dependency>
           </dependencies>
+          <configuration>
+            <targetJdk>${maven.compiler.target}</targetJdk>
+            <excludeFromFailureFile>src/conf/pmd-exclude.properties</excludeFromFailureFile>
+            <rulesets>
+              <ruleset>src/conf/pmd-ruleset.xml</ruleset>
+            </rulesets>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.cyclonedx</groupId>
@@ -1277,7 +1382,6 @@
         <commons.felix.version>3.5.1</commons.felix.version>
         <commons.animal-sniffer.version>1.17</commons.animal-sniffer.version>
         <commons.biz.aQute.bndlib.version>3.5.0</commons.biz.aQute.bndlib.version>
-        <commons.spotbugs.impl.version>4.8.6</commons.spotbugs.impl.version>
       </properties>
     </profile>
     <profile>
@@ -1287,7 +1391,6 @@
       </activation>
       <properties>
         <commons.spdx.version>0.6.3</commons.spdx.version>
-        <commons.spotbugs.impl.version>4.8.6</commons.spotbugs.impl.version>
       </properties>
     </profile>
     <profile>
@@ -1308,8 +1411,6 @@
         <jdk>[1.8,10]</jdk>
       </activation>
       <properties>
-        <commons.spotbugs.plugin.version>4.8.6.6</commons.spotbugs.plugin.version>
-        <commons.spotbugs.impl.version>4.8.6</commons.spotbugs.impl.version>
         <commons.javadoc.javaee.link></commons.javadoc.javaee.link>
       </properties>
     </profile>

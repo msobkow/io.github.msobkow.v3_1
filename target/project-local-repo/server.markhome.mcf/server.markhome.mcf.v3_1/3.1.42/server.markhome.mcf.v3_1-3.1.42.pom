@@ -21,17 +21,17 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<properties>
-		<graal.mainClass>YouMustDefineAMainClassForGraalVM</graal.mainClass>
 		<maven.compiler.source>25</maven.compiler.source>
 		<maven.compiler.target>25</maven.compiler.target>
+		<maven-compiler.version>3.15.0</maven-compiler.version>
+		<maven-toolchains.version>3.3.0</maven-toolchains.version>
+		<graal.mainClass>YouMustDefineAMainClassForGraalVM</graal.mainClass>
+		<graalvm-buildtools.version>1.1.10</graalvm-buildtools.version>
+		<graaljs.version>25.3.4.1</graaljs.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<commons.encoding>UTF-8</commons.encoding>
 		<!--project.build.outputTimestamp>${env.BUILD_STAMP}</project.build.outputTimestamp-->
-		<maven-compiler.version>3.15.0</maven-compiler.version>
-		<maven-toolchains.version>3.3.0</maven-toolchains.version>
-		<graalvm-buildtools.version>1.1.10</graalvm-buildtools.version>
-		<graaljs.version>25.3.4.1</graaljs.version>
 		<jaxb-api.version>2.4.0-b180725.0427</jaxb-api.version>
 		<spring.version>4.0.5</spring.version>
 		<mcf.version>3.1.${env.buildString}-${env.BUILD_STAMP}</mcf.version>
@@ -42,13 +42,14 @@
 		<!-- configuration bits for cutting a release candidate, must be overridden by components -->
 		<!-- TODO How can we make project.build.outputTimestamp and changes.xml's release data the same? -->
 		<!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
-		<project.build.outputTimestamp>${env.BUILD_STAMP}</project.build.outputTimestamp>
 		<commons.main.branch>main</commons.main.branch>
 		<commons.release.branch>release</commons.release.branch>
 		<commons.release.version>104</commons.release.version>
 		<commons.release.next>105</commons.release.next>
 		<commons.rc.version>${env.buildString}</commons.rc.version>
 		<commons.jira.id>COMMONSSITE</commons.jira.id>
+		<commons.develocity.version>4.2</commons.develocity.version>
+		<commons.foojay-resolver-convention.version>1.0.0</commons.foojay-resolver-convention.version>
 		<!-- Commons Release Plugin -->
 		<!-- Previous version of the component (used for reporting binary compatibility check)-->
 		<commons.bc.version>103</commons.bc.version>
@@ -59,8 +60,6 @@
 			commons.releaseManagerName
 			commons.releaseManagerKey
 		-->
-		<maven.compiler.source>25</maven.compiler.source>
-		<maven.compiler.target>25</maven.compiler.target>
 		<!-- Java >= 9 -->
 		<commons.compiler.release>25</commons.compiler.release>
 		<!-- compiler and surefire plugin settings for "java" profiles -->
@@ -95,13 +94,13 @@
 		<commons.moditect-maven-plugin.version>1.3.0.Final</commons.moditect-maven-plugin.version>
 		<commons.moditect-maven-plugin.addServiceUses>true</commons.moditect-maven-plugin.addServiceUses>
 		<!-- bndlib 7 requires Java 17 -->
-		<commons.biz.aQute.bndlib.version>6.4.1</commons.biz.aQute.bndlib.version>
+		<commons.biz.aQute.bndlib.version>7.4.0</commons.biz.aQute.bndlib.version>
 		<!-- JUnit 6 requires Java 17 -->
-		<commons.junit.version>5.14.4</commons.junit.version>
+		<commons.junit.version>6.1.3</commons.junit.version>
 		<!-- JUnit Pioneer 2 requires Java 11 -->
 		<commons.junit-pioneer.version>1.9.1</commons.junit-pioneer.version>
 		<!-- Mockito 5 requires Java 11 -->
-		<commons.mockito.version>4.11.0</commons.mockito.version>
+		<commons.mockito.version>5.23.0</commons.mockito.version>
 		<commons.jmh.version>1.37</commons.jmh.version>
 		<commons.asm.version>9.10.1</commons.asm.version>
 		<commons.taglist.version>3.2.2</commons.taglist.version>
@@ -203,7 +202,7 @@
 		<!-- value modules can override it -->
 		<commons.site.path>${commons.componentid}</commons.site.path>
 		<!-- SCM -->
-		<commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-${commons.componentid}</commons.scmPubUrl>
+		<commons.scmPubUrl>https://github.com/msobkow/commons-${commons.componentid}</commons.scmPubUrl>
 		<commons.scmPubCheckoutDirectory>${commons.site.cache}/${commons.site.path}</commons.scmPubCheckoutDirectory>
 		<commons.scmPubServer>commons.site</commons.scmPubServer>
 		<!-- allow japicmp's breakBuildOnBinaryIncompatibleModifications
@@ -212,44 +211,205 @@
 		<commons.japicmp.breakBuildOnSourceIncompatibleModifications>false</commons.japicmp.breakBuildOnSourceIncompatibleModifications>
 		<commons.japicmp.ignoreMissingClasses>false</commons.japicmp.ignoreMissingClasses>
 		<!-- Commons Release plugin: dist dev site -->
-		<commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}</commons.distSvnStagingUrl>
+		<!--commons.distSvnStagingUrl>scm:svn:https://dist.apache.org/repos/dist/dev/commons/${commons.componentid}</commons.distSvnStagingUrl-->
+		<commons.distSvnStagingUrl>scm:git:https://github.com/msobkow/${commons.componentid}-js</commons.distSvnStagingUrl>
 		<commons.conf.dir>src/conf</commons.conf.dir>
-		<sonar.host.url>https://analysis.apache.org/</sonar.host.url>
+		<!--sonar.host.url>https://analysis.apache.org/</sonar.host.url-->
 		<!-- allow override of changes.announcementFile and directory -->
 		<changes.announcementDirectory>.</changes.announcementDirectory>
 		<changes.announcementFile>RELEASE-NOTES.txt</changes.announcementFile>
+		<java.version>25</java.version>
+
+		<project.build.outputTimestamp>2026-09-04T14:45:00Z</project.build.outputTimestamp>
+
+		<!-- Logging -->
+		<commons.slf4j.version>${slf4j.version}</commons.slf4j.version>
+		<commons.log4j2.version>2.26.1</commons.log4j2.version>
+
+		<!-- JSON-LD 1.1 -->
+		<commons.titanium-json-ld.version>1.7.0</commons.titanium-json-ld.version>
+		<commons.jakarta.json.version>2.0.1</commons.jakarta.json.version>
+
+		<!-- These two must be in-step -->
+		<commons.jetty.version>12.1.12</commons.jetty.version>
+		<commons.jakarta-servlet.version>6.1.0</commons.jakarta-servlet.version>
+
+		<!--
+			 These two go together
+			 See jena-fuseki-webapp and https://shiro.apache.org/jakarta-ee.html
+		-->
+		<commons.shiro.version>2.2.1</commons.shiro.version>
+
+		<commons.protobuf.version>4.36.0</commons.protobuf.version>
+		<commons.libthrift.version>0.24.0</commons.libthrift.version>
+
+		<commons.caffeine.version>3.2.4</commons.caffeine.version>
+		<!-- Most of Jena uses other libraries for equivalent functionality. -->
+		<commons.guava.version>33.7.1-jre</commons.guava.version>
+
+		<commons.gson.version>2.14.0</commons.gson.version>
+		<commons.lucene.version>10.3.1</commons.lucene.version>
+
+		<commons.commons-io.version>2.22.0</commons.commons-io.version>
+		<commons.commons-cli.version>1.7.0</commons.commons-cli.version>
+		<commons.commons-lang3.version>3.20.0</commons.commons-lang3.version>
+		<commons.commons-math4.version>4.0-beta1</commons.commons-math4.version>
+		<commons.commons-rdf.version>0.5.0</commons.commons-rdf.version>
+		<commons.commons-csv.version>1.14.1</commons.commons-csv.version>
+		<commons.commons-codec.version>1.22.1</commons.commons-codec.version>
+		<commons.commons-compress.version>1.28.0</commons.commons-compress.version>
+		<commons.commons-collections.version>4.6.0</commons.commons-collections.version>
+		<commons.commons-fileupload.version>2.0.0-M5</commons.commons-fileupload.version>
+
+		<commons.dexxcollection.version>0.7</commons.dexxcollection.version>
+		<commons.micrometer.version>1.17.1</commons.micrometer.version>
+		<commons.roaringbitmap.version>1.6.20</commons.roaringbitmap.version>
+		<commons.opencsv.version>5.12.0</commons.opencsv.version>
+
+		<!-- Testing -->
+		<commons.junit4.version>4.13.2</commons.junit4.version>
+	 
+		<commons.awaitility.version>4.3.0</commons.awaitility.version>
+
+		<!-- For testing, not shipped -->
+		<commons.graalvm.version>${graaljs.version}</commons.graalvm.version>
+		<commons.org.openjdk.jmh.version>1.37</commons.org.openjdk.jmh.version>
+
+		<!-- GeoSPARQL related -->
+		<commons.kryo.version>5.6.2</commons.kryo.version>
+		<!-- Used in jena-fuseki-geosparql -->
+		<commons.jcommander.version>1.82</commons.jcommander.version>
+		<commons.sis.version>1.6</commons.sis.version>
+		<commons.jts.version>1.20.0</commons.jts.version>
+		<commons.jdom2.version>2.0.6.1</commons.jdom2.version>
+		<!-- Used in jena-fuseki-mod-geosparql -->
+		<commons.selenium-java.version>4.47.0</commons.selenium-java.version>
+		<commons.webdrivermanager.version>6.3.4</commons.webdrivermanager.version>
+
+		<ver.plugin.rat>${commons.rat.version}</ver.plugin.rat>
+		<ver.plugin.assembly>${commons.assembly.version}</ver.plugin.assembly>
+		<ver.plugin.compiler>${commons.compiler.version}</ver.plugin.compiler>
+		<ver.plugin.surefire>${commons.surefire.version}</ver.plugin.surefire>
+		<ver.plugin.javadoc>${commons.javadoc.version}</ver.plugin.javadoc>
+		<ver.plugin.shade>${commons.shade.version}</ver.plugin.shade>
+		<ver.plugin.enforcer>${commons.enforcer.version}</ver.plugin.enforcer>
+		<ver.plugin.cyclonedx>${commons.cyclonedx.version}</ver.plugin.cyclonedx>
+		<ver.plugin.spdx>${commons.spds.version}</ver.plugin.spdx>
+		<ver.plugin.flatten>${commons.flatten.version}</ver.plugin.flatten>
+
+		<!-- Logging -->
+		<ver.slf4j>${commons.slf4j.version}</ver.slf4j>
+		<ver.log4j2>${commons.log4j2.version}</ver.log4j2>
+
+		<!-- JSON-LD 1.1 -->
+		<ver.titanium-json-ld>${commons.titanium-json-ld.version}</ver.titanium-json-ld>
+		<ver.jakarta.json>${commons.jakarta.json.version}</ver.jakarta.json>
+
+		<!-- These two must be in-step -->
+		<ver.jetty>${commons.jetty.version}</ver.jetty>
+		<ver.jakarta-servlet>${commons.jakarta-servlet.version}</ver.jakarta-servlet>
+
+		<!--
+			 These two go together
+			 See jena-fuseki-webapp and https://shiro.apache.org/jakarta-ee.html
+		-->
+		<ver.shiro>${commons.shiro.version}</ver.shiro>
+
+		<ver.protobuf>${commons.protobuf.version}</ver.protobuf>
+		<ver.libthrift>${commons.libthrift.version}</ver.libthrift>
+
+		<ver.caffeine>${commons.caffeine.version}</ver.caffeine>
+		<!-- Most of Jena uses other libraries for equivalent functionality. -->
+		<ver.guava>${commons.guava.version}</ver.guava>
+
+		<ver.gson>${commons.gson.version}</ver.gson>
+		<ver.lucene>${commons.lucene.version}</ver.lucene>
+
+		<ver.commons-io>${commons.commons-io.version}</ver.commons-io>
+		<ver.commons-cli>${commons.commons-cli.version}</ver.commons-cli>
+		<ver.commons-lang3>${commons.commons-lang3.version}</ver.commons-lang3>
+		<ver.commons-math4>${commons.commons-math4.version}</ver.commons-math4>
+		<ver.commons-rdf>${commons.commons-rdf.version}</ver.commons-rdf>
+		<ver.commons-csv>${commons.commons-csv.version}</ver.commons-csv>
+		<ver.commons-codec>${commons.commons-codec.version}</ver.commons-codec>
+		<ver.commons-compress>${commons.commons-compress.version}</ver.commons-compress>
+		<ver.commons-collections>${commons.commons-collections.version}</ver.commons-collections>
+		<ver.commons-fileupload>${commons.commons-fileupload.version}</ver.commons-fileupload>
+
+		<ver.dexxcollection>${commons.dexxcollection.version}</ver.dexxcollection>
+		<ver.micrometer>${commons.micrometer.version}</ver.micrometer>
+		<ver.roaringbitmap>${commons.roaringbitmap.version}</ver.roaringbitmap>
+		<ver.opencsv>${commons.opencsv.version}</ver.opencsv>
+
+		<!-- Testing -->
+		<ver.junit4>${commons.junit4.version}</ver.junit4>
+		<ver.junit>${commons.junit.version}</ver.junit>
+	 
+		<ver.mockito>${commons.mockito.version}</ver.mockito>
+		<ver.awaitility>${commons.awaitility.version}</ver.awaitility>
+
+		<!-- For testing, not shipped -->
+		<ver.graalvm>${commons.graalvm.version}</ver.graalvm>
+		<ver.org.openjdk.jmh>${commons.org.openjdk.jmh.version}</ver.org.openjdk.jmh>
+
+		<!-- GeoSPARQL related -->
+		<ver.kryo>${commons.kryo.version}</ver.kryo>
+		<!-- Used in jena-fuseki-geosparql -->
+		<ver.jcommander>${commons.jcommander.version}</ver.jcommander>
+		<ver.sis>${commons.sis.version}</ver.sis>
+		<ver.jts>${commons.jts.version}</ver.jts>
+		<ver.jdom2>${commons.jdom2.version}</ver.jdom2>
+		<!-- Used in jena-fuseki-mod-geosparql -->
+		<ver.selenium-java>${commons.selenium-java.version}</ver.selenium-java>
+		<ver.webdrivermanager>${commons.webdrivermanager.version}</ver.webdrivermanager>
+
+		<!-- Plugins -->
+		<ver.plugin.rat>${commons.plugin.rat.version}</ver.plugin.rat>
+		<ver.plugin.assembly>${commons.plugin.assembly.version}</ver.plugin.assembly>
+		<ver.plugin.compiler>${commons.plugin.compiler.version}</ver.plugin.compiler>
+		<ver.plugin.surefire>${commons.plugin.surefire.version}</ver.plugin.surefire>
+		<ver.plugin.javadoc>${commons.plugin.javadoc.version}</ver.plugin.javadoc>
+		<ver.plugin.shade>${commons.plugin.shade.version}</ver.plugin.shade>
+		<ver.plugin.enforcer>${commons.plugin.enforcer.version}</ver.plugin.enforcer>
+		<ver.plugin.cyclonedx>${commons.plugin.cyclonedx.version}</ver.plugin.cyclonedx>
+		<ver.plugin.spdx>${commons.plugin.spdx.version}</ver.plugin.spdx>
+		<ver.plugin.flatten>${commons.plugin.flatten.version}</ver.plugin.flatten>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<!--groupId>server.markhome.mcf.v3_1</groupId-->
 				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>
 				<version>${commons.junit.version}</version>
 				<type>pom</type>
-				<scope>import</scope>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
+				<!--groupId>server.markhome.mcf.v3_1</groupId-->
 				<groupId>org.junit-pioneer</groupId>
 				<artifactId>junit-pioneer</artifactId>
 				<version>${commons.junit-pioneer.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
+				<!--groupId>server.markhome.mcf.v3_1</groupId-->
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-bom</artifactId>
 				<version>${commons.mockito.version}</version>
 				<type>pom</type>
-				<scope>import</scope>
+				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>
-	<extensions>
-		<extension>
-			<groupId>org.apache.maven.wagon</groupId>
-			<artifactId>wagon-ssh-external</artifactId>
-			<version>1.0-beta-6</version>
-		</extension>
-	</extensions>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh-external</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
 		<defaultGoal>clean apache-rat:check verify spotbugs:check pmd:check site</defaultGoal>
 		<resources>
 			<!-- This is the default setting from the super-pom -->
@@ -291,7 +451,7 @@
 				<plugin>
 					<groupId>org.moditect</groupId>
 					<artifactId>moditect-maven-plugin</artifactId>
-<version>1.0.0.Beta2</version>
+					<version>${commons.moditect-maven-plugin.version}</version>
 					<executions>
 						<execution>
 							<id>add-module-infos</id>
@@ -310,96 +470,96 @@
 						</execution>
 					</executions>
 				</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-toolchains-plugin</artifactId>
-				<version>${maven-toolchains.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>toolchain</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<toolchains>
-						<jdk>
-							<version>25-lts</version>
-							<vendor>adoptium</vendor>
-						</jdk>
-						<jdk>
-							<version>graalvm-ce-25</version>
-							<vendor>graalvm.org</vendor>
-						</jdk>
-					</toolchains>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.graalvm.buildtools</groupId>
-				<artifactId>native-maven-plugin</artifactId>
-				<version>${graalvm-buildtools.version}</version>
-				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<id>build-native</id>
-						<goals>
-							<goal>compile-no-fork</goal>
-						</goals>
-						<phase>package</phase>
-					</execution>
-					<!--execution>
-						<id>test-native</id>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<phase>test</phase>
-					</execution-->
-				</executions>
-				<configuration>
-					<!--executable>export PATH=${env.GRAAL_JDK_HOME}/bin:${env.GRAAL_JDK_HOME}/lib:${env.BASE_PATH} &amp;&amp; export GRAALVM_HOME=${env.GRAAL_JDK_HOME} &amp;&amp; export JAVA_HOME=${env.GRAAL_JDK_HOME} &amp;&amp; export JDK_HOME={env.GRAAL_JDK_HOME} &amp;&amp; native-image </executable-->
-					<buildArgs>
-						<!--buildArg>-g</buildArg-->
-						<!--buildArg>&#45;&#45;enable-monitoring=heapdump,jfr,jvmstat,jmxserver,jmxclient,threaddump,nmt,jccmd</buildArg-->
-						<!--buildArg>&#45;&#45;enable-native-access=ALL-UNNAMED</buildArg-->
-						<!--buildArg>&#45;&#45;exact-reachability-metadata</buildArg-->
-						<!--buildArg>&#45;&#45;future-defaults</buildArg-->
-						<!--buildArg>&#45;&#45;implicit:class</buildArg-->
-						<buildArg>&#45;H:+UnlockExperimentalVMOptions</buildArg>
-						<buildArg>&#45;H:Preserve=all</buildArg>
-					</buildArgs>
-					<mainClass>${graal.mainClass}</mainClass>
-					<skipNativeBuildForPom>true</skipNativeBuildForPom>
-					<debug>true</debug>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-toolchains-plugin</artifactId>
+					<version>${maven-toolchains.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>toolchain</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<toolchains>
+							<jdk>
+								<version>25-lts</version>
+								<vendor>adoptium</vendor>
+							</jdk>
+							<jdk>
+								<version>graalvm-ce-25</version>
+								<vendor>graalvm.org</vendor>
+							</jdk>
+						</toolchains>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.graalvm.buildtools</groupId>
+					<artifactId>native-maven-plugin</artifactId>
+					<version>${graalvm-buildtools.version}</version>
 					<extensions>true</extensions>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>3.1.4</version>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.5.1</version>
-				<executions>
-					<execution>
-						<id>default-deploy</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>deploy</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<serverId>nexus</serverId>
-					<nexusUrl>http://nexus3.mcf.markhome.server:8081/repository/mcf.markhome.server-hosted/</nexusUrl>
-					<skipStaging>true</skipStaging>
-				</configuration>
-			</plugin>
+					<executions>
+						<execution>
+							<id>build-native</id>
+							<goals>
+								<goal>compile-no-fork</goal>
+							</goals>
+							<phase>package</phase>
+						</execution>
+						<!--execution>
+							<id>test-native</id>
+							<goals>
+								<goal>test</goal>
+							</goals>
+							<phase>test</phase>
+						</execution-->
+					</executions>
+					<configuration>
+						<!--executable>export PATH=${env.GRAAL_JDK_HOME}/bin:${env.GRAAL_JDK_HOME}/lib:${env.BASE_PATH} &amp;&amp; export GRAALVM_HOME=${env.GRAAL_JDK_HOME} &amp;&amp; export JAVA_HOME=${env.GRAAL_JDK_HOME} &amp;&amp; export JDK_HOME={env.GRAAL_JDK_HOME} &amp;&amp; native-image </executable-->
+						<buildArgs>
+							<!--buildArg>-g</buildArg-->
+							<!--buildArg>&#45;&#45;enable-monitoring=heapdump,jfr,jvmstat,jmxserver,jmxclient,threaddump,nmt,jccmd</buildArg-->
+							<!--buildArg>&#45;&#45;enable-native-access=ALL-UNNAMED</buildArg-->
+							<!--buildArg>&#45;&#45;exact-reachability-metadata</buildArg-->
+							<!--buildArg>&#45;&#45;future-defaults</buildArg-->
+							<!--buildArg>&#45;&#45;implicit:class</buildArg-->
+							<buildArg>&#45;H:+UnlockExperimentalVMOptions</buildArg>
+							<buildArg>&#45;H:Preserve=all</buildArg>
+						</buildArgs>
+						<mainClass>${graal.mainClass}</mainClass>
+						<skipNativeBuildForPom>true</skipNativeBuildForPom>
+						<debug>true</debug>
+						<extensions>true</extensions>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>3.1.4</version>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>1.5.1</version>
+					<executions>
+						<execution>
+							<id>default-deploy</id>
+							<phase>deploy</phase>
+							<goals>
+								<goal>deploy</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<serverId>nexus</serverId>
+						<nexusUrl>http://nexus3.mcf.markhome.server:8081/repository/mcf.markhome.server-hosted/</nexusUrl>
+						<skipStaging>true</skipStaging>
+					</configuration>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -571,6 +731,15 @@
 					<version>${commons.rat.version}</version>
 					<configuration>
 						<counterMax>Unapproved:100</counterMax>
+						<excludes>
+							<exclude>site-content/**</exclude>
+							<exclude>src/site/resources/.htaccess</exclude>
+							<exclude>src/site/resources/download_lang.cgi</exclude>
+							<exclude>src/site/resources/release-notes/RELEASE-NOTES-*.txt</exclude>
+							<exclude>src/test/resources/lang-708-input.txt</exclude>
+							<exclude>**/*.svg</exclude>
+							<exclude>**/*.xcf</exclude>
+						</excludes>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -725,6 +894,13 @@
 							<version>${commons.pmd-impl.version}</version>
 						</dependency>
 					</dependencies>
+					<configuration>
+						<targetJdk>${maven.compiler.target}</targetJdk>
+						<excludeFromFailureFile>src/conf/pmd-exclude.properties</excludeFromFailureFile>
+						<rulesets>
+							<ruleset>src/conf/pmd-ruleset.xml</ruleset>
+						</rulesets>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.cyclonedx</groupId>
@@ -1598,7 +1774,6 @@
 				<commons.felix.version>3.5.1</commons.felix.version>
 				<commons.animal-sniffer.version>1.17</commons.animal-sniffer.version>
 				<commons.biz.aQute.bndlib.version>3.5.0</commons.biz.aQute.bndlib.version>
-				<commons.spotbugs.impl.version>4.8.6</commons.spotbugs.impl.version>
 			</properties>
 		</profile>
 		<profile>
@@ -1608,7 +1783,6 @@
 			</activation>
 			<properties>
 				<commons.spdx.version>0.6.3</commons.spdx.version>
-				<commons.spotbugs.impl.version>4.8.6</commons.spotbugs.impl.version>
 			</properties>
 		</profile>
 		<profile>
@@ -1672,8 +1846,6 @@
 			</activation>
 			<properties>
 				<!-- SpotBugs 4.9.0 requires Java 11 -->
-				<commons.spotbugs.plugin.version>4.8.6.6</commons.spotbugs.plugin.version>
-				<commons.spotbugs.impl.version>4.8.6</commons.spotbugs.impl.version>
 				<!-- Java EE Javadoc has been republished with a Java > 8 and is no longer compatible with Javadoc 8 -->
 				<commons.javadoc.javaee.link></commons.javadoc.javaee.link>
 			</properties>
